@@ -39,7 +39,7 @@ app.use('/public',express.static(__dirname + '/public'));
 
 
 
- app.get("/",function(req,res){
+ app.get('/',function(req,res){
 	res.send("welcome");
 });
 app.post('/register',(req,res)=>{
