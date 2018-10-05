@@ -13,10 +13,8 @@ var fileUpload =require('express-fileupload');
  const postgres=knex ({
     client: 'pg',
     connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'vikrant',
-    database : 'signin'
+      connectionString: process.env.DATABASE_URL,
+    ssl: true,
   }
 });
 
@@ -35,7 +33,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
- 
+
 
 
 
@@ -104,7 +102,7 @@ app.post('/forgot',(req,res)=>{
 	postgres.select('*').from('signindata').where({email:email})
 	.then(data=>{
 			res.json(data[0].password)
-		
+
 	})
 })
 
