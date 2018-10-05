@@ -37,9 +37,9 @@ app.use('/public',express.static(__dirname + '/public'));
 
 
 
- app.get("/",function(req,res){
+ app.get('/',function(req,res){
 	res.send("welcome");
-});
+})
 app.post('/register',(req,res)=>{
 	const{email,password}=req.body;
 	postgres.insert({email:email,password:password}).into('signindata').returning('*')
