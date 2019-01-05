@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,7 +18,21 @@
     "knex": "^0.15.2",
     "nexmo": "^2.3.2",
     "nodemon": "^1.18.3",
+<<<<<<< HEAD
     "pg": "^7.7.1",
+=======
+    "pg": "^7.5.0",
+>>>>>>> 7d178b15e2a68cfdd9e0c03aff7f7b91e3ac2bc8
     "twilio": "^3.19.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikrant9031/call-log-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vikrant9031/call-log-api/issues"
+  },
+  "homepage": "https://github.com/vikrant9031/call-log-api#readme",
+  "description": ""
 }

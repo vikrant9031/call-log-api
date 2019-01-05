@@ -38,9 +38,15 @@ app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
 
 
+<<<<<<< HEAD
  app.get("/",function(req,res){
+=======
+
+
+ app.get('/',function(req,res){
+>>>>>>> 7d178b15e2a68cfdd9e0c03aff7f7b91e3ac2bc8
 	res.send("welcome");
-});
+})
 app.post('/register',(req,res)=>{
 	const{email,password}=req.body;
 	postgres.insert({email:email,password:password}).into('signindata').returning('*')
