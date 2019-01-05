@@ -58,15 +58,14 @@ app.post('/contact',(req,res)=>{
 	})
 })
 
-
 app.post('/info',(req,res)=>{
-	postgres.select('*').from('contact')
+	const{id}= req.body;
+	postgres.select('*').from('contact').where({sendid:id}).returning('*')
 	.then(data=>{
 		res.json(data)
 		console.log(data);
 	})
 })
-
 app.post('/upload',(req,res)=>{
 	console.log(req);
 	var dj = req.files.file;
