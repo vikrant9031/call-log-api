@@ -15,21 +15,7 @@ var postgres = require('knex')({
     database : 'test1'
   }
 });
-// console.log(postgres.select('*').from('vikrant'));
-// postgres.select('*').from('vikrant').then(inf=>{
-// 	console.log(inf);
 
-// })
-
-// const database={
-// 	users:[
-//        {
-//        	name:'vikrant',
-//        	email:'vikrantsingh769@gmail.com',
-//        	password:'vikrant'
-//        }
-// 	]
-// }
 const app =express();
 
 app.use(bodyParser.json());
@@ -38,13 +24,13 @@ app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
 
 
-<<<<<<< HEAD
- app.get("/",function(req,res){
-=======
+
+
+
 
 
  app.get('/',function(req,res){
->>>>>>> 7d178b15e2a68cfdd9e0c03aff7f7b91e3ac2bc8
+
 	res.send("welcome");
 })
 app.post('/register',(req,res)=>{
@@ -110,6 +96,6 @@ app.post('/forgot',(req,res)=>{
 })
 
 
-app.listen(3001,()=>{
+app.listen(process.env.PORT || 3001,()=>{
 	console.log('second running');
 })
