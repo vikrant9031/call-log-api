@@ -6,17 +6,20 @@ const bodyParser=require('body-parser');
 const cors=require('cors');
 
 var fileUpload =require('express-fileupload');
-
-
-
-
- const postgres=knex ({
-    client: 'pg',
-    connection: {
-      connectionString: process.env.DATABASE_URL,
-    ssl: true,
+var postgres = require('knex')({
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    user : 'postgres',
+    password : 'vikrant',
+    database : 'test1'
   }
 });
+// console.log(postgres.select('*').from('vikrant'));
+// postgres.select('*').from('vikrant').then(inf=>{
+// 	console.log(inf);
+
+// })
 
 // const database={
 // 	users:[
@@ -35,8 +38,6 @@ app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
 
 
-
-
  app.get("/",function(req,res){
 	res.send("welcome");
 });
@@ -50,8 +51,8 @@ app.post('/register',(req,res)=>{
 })
 
 app.post('/contact',(req,res)=>{
-	const{name,company,work,mobile,email}=req.body;
-	postgres.insert({name:name,company:company,work:work,mobile:mobile,email:email}).into('contact').returning('*')
+	const{name,company,work,mobile,email,id}=req.body;
+	postgres.insert({name:name,company:company,work:work,mobile:mobile,email:email,sendid:id}).into('contact').returning('*')
 	.then(data=>{
 		res.json("successfully")
 		console.log("successfully inserted");
@@ -60,7 +61,8 @@ app.post('/contact',(req,res)=>{
 
 
 app.post('/info',(req,res)=>{
-	postgres.select('*').from('contact')
+	const{id}= req.body;
+	postgres.select('*').from('contact').where({sendid:id}).returning('*')
 	.then(data=>{
 		res.json(data)
 		console.log(data);
@@ -83,17 +85,12 @@ app.post('/upload',(req,res)=>{
 
 app.post('/signin',(req,res)=>{
    const {email,password}=req.body;
-   postgres.select('*').from('signindata').where({email:email})
+   postgres.select('*').from('signindata').where({email:email,password:password}).returning('*')
    .then(data=>{
-   	if(password===data[0].password){
-   		res.json("success");
-   	}
-   	else{
-       res.json("error");
-   	}
-   }
-
-   	)
+   	res.json(data);
+   	console.log(data);
+   		
+   }	)
 
 })
 
@@ -107,7 +104,6 @@ app.post('/forgot',(req,res)=>{
 })
 
 
-
-app.listen(process.env.PORT || 3000,()=>{
-	console.log(' second running');
+app.listen(3001,()=>{
+	console.log('second running');
 })
