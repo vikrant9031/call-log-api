@@ -50,13 +50,14 @@ app.post('/register',(req,res)=>{
 })
 
 app.post('/contact',(req,res)=>{
-	const{name,company,work,mobile,email}=req.body;
-	postgres.insert({name:name,company:company,work:work,mobile:mobile,email:email}).into('contact').returning('*')
+	const{name,company,work,mobile,email,id}=req.body;
+	postgres.insert({name:name,company:company,work:work,mobile:mobile,email:email,sendid:id}).into('contact').returning('*')
 	.then(data=>{
 		res.json("successfully")
 		console.log("successfully inserted");
 	})
 })
+
 
 app.post('/info',(req,res)=>{
 	const{id}= req.body;
@@ -82,17 +83,12 @@ app.post('/upload',(req,res)=>{
 
 app.post('/signin',(req,res)=>{
    const {email,password}=req.body;
-   postgres.select('*').from('signindata').where({email:email})
+   postgres.select('*').from('signindata').where({email:email,password:password}).returning('*')
    .then(data=>{
-   	if(password===data[0].password){
-   		res.json("success");
-   	}
-   	else{
-       res.json("error");
-   	}
-   }
-
-   	)
+   	res.json(data);
+   	console.log(data);
+   		
+   }	)
 
 })
 
