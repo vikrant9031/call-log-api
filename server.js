@@ -60,7 +60,6 @@ app.post('/info',(req,res)=>{
 		console.log(data);
 	})
 })
-
 app.post('/upload',(req,res)=>{
 	console.log(req);
 	var dj = req.files.file;
