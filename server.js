@@ -7,17 +7,15 @@ const cors=require('cors');
 
 var fileUpload =require('express-fileupload');
 
-var postgres = require('knex')({
+var postgres = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'vikrant',
-    database : 'test1'
+    host : process.env.DATABASE_URL,
+    ssl:true
   }
 });
 
-<<<<<<< HEAD
+
 // const database={
 // 	users:[
 //        {
@@ -27,8 +25,7 @@ var postgres = require('knex')({
 //        }
 // 	]
 // }
-=======
->>>>>>> b9d4a31f4752863417710cdd1393ab5cbf4f0efd
+
 const app =express();
 
 app.use(bodyParser.json());
@@ -37,11 +34,10 @@ app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
 
 
-<<<<<<< HEAD
 
 
  app.get("/",function(req,res){
-=======
+
 
 
 
@@ -49,7 +45,6 @@ app.use('/public',express.static(__dirname + '/public'));
 
  app.get('/',function(req,res){
 
->>>>>>> b9d4a31f4752863417710cdd1393ab5cbf4f0efd
 	res.send("welcome");
 });
 
@@ -115,12 +110,8 @@ app.post('/forgot',(req,res)=>{
 })
 
 
-<<<<<<< HEAD
+
 
 app.listen(process.env.PORT || 3001,()=>{
 	console.log(' second running');
-=======
-app.listen(process.env.PORT || 3001,()=>{
-	console.log('second running');
->>>>>>> b9d4a31f4752863417710cdd1393ab5cbf4f0efd
 })
