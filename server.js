@@ -1,5 +1,5 @@
 const express =require('express');
-const knex=require('knex');
+const knex= require('knex');
 const bcrypt =require('bcrypt-nodejs');
 
 const bodyParser=require('body-parser');
@@ -7,24 +7,15 @@ const cors=require('cors');
 
 var fileUpload =require('express-fileupload');
 
-var postgres = knex({
+const postgres = knex({
   client: 'pg',
   connection: {
     host : process.env.DATABASE_URL,
-    ssl:true
+    ssl:true,
   }
 });
 
 
-// const database={
-// 	users:[
-//        {
-//        	name:'vikrant',
-//        	email:'vikrantsingh769@gmail.com',
-//        	password:'vikrant'
-//        }
-// 	]
-// }
 
 const app =express();
 
@@ -33,20 +24,10 @@ app.use(cors());
 app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
 
-
-
-
- app.get("/",function(req,res){
-
-
-
-
-
-
  app.get('/',function(req,res){
 
 	res.send("welcome");
-});
+})
 
 app.post('/register',(req,res)=>{
 	const{email,password,security}=req.body;
