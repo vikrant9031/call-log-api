@@ -6,6 +6,7 @@ const bodyParser=require('body-parser');
 const cors=require('cors');
 
 var fileUpload =require('express-fileupload');
+
 var postgres = require('knex')({
   client: 'pg',
   connection: {
@@ -15,11 +16,6 @@ var postgres = require('knex')({
     database : 'test1'
   }
 });
-// console.log(postgres.select('*').from('vikrant'));
-// postgres.select('*').from('vikrant').then(inf=>{
-// 	console.log(inf);
-
-// })
 
 // const database={
 // 	users:[
@@ -38,18 +34,15 @@ app.use(fileUpload());
 app.use('/public',express.static(__dirname + '/public'));
 
 
-<<<<<<< HEAD
+
+
  app.get("/",function(req,res){
-=======
-
-
- app.get('/',function(req,res){
->>>>>>> 7d178b15e2a68cfdd9e0c03aff7f7b91e3ac2bc8
 	res.send("welcome");
-})
+});
+
 app.post('/register',(req,res)=>{
-	const{email,password}=req.body;
-	postgres.insert({email:email,password:password}).into('signindata').returning('*')
+	const{email,password,security}=req.body;
+	postgres.insert({email:email,password:password,security:security}).into('signindata').returning('*')
 	.then(data=>{
 		res.json("successfully")
 		console.log("successfully inserted");
@@ -57,8 +50,8 @@ app.post('/register',(req,res)=>{
 })
 
 app.post('/contact',(req,res)=>{
-	const{name,company,work,mobile,email,id}=req.body;
-	postgres.insert({name:name,company:company,work:work,mobile:mobile,email:email,sendid:id}).into('contact').returning('*')
+	const{name,work,mobile,email,id}=req.body;
+	postgres.insert({name:name,work:work,mobile:mobile,email:email,sendid:id}).into('contact').returning('*')
 	.then(data=>{
 		res.json("successfully")
 		console.log("successfully inserted");
@@ -74,7 +67,6 @@ app.post('/info',(req,res)=>{
 		console.log(data);
 	})
 })
-
 app.post('/upload',(req,res)=>{
 	console.log(req);
 	var dj = req.files.file;
@@ -101,8 +93,8 @@ app.post('/signin',(req,res)=>{
 })
 
 app.post('/forgot',(req,res)=>{
-	const{email}=req.body;
-	postgres.select('*').from('signindata').where({email:email})
+	const{email,security}=req.body;
+	postgres.select('*').from('signindata').where({email:email,security:security}).returning('*')
 	.then(data=>{
 			res.json(data[0].password)
 
@@ -110,6 +102,7 @@ app.post('/forgot',(req,res)=>{
 })
 
 
-app.listen(3001,()=>{
-	console.log('second running');
+
+app.listen(process.env.PORT || 3001,()=>{
+	console.log(' second running');
 })

@@ -18,11 +18,8 @@
     "knex": "^0.15.2",
     "nexmo": "^2.3.2",
     "nodemon": "^1.18.3",
-<<<<<<< HEAD
     "pg": "^7.7.1",
-=======
-    "pg": "^7.5.0",
->>>>>>> 7d178b15e2a68cfdd9e0c03aff7f7b91e3ac2bc8
+    "pq": "0.0.3",
     "twilio": "^3.19.2"
   },
   "devDependencies": {},
